@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>두더지 잡기</title>
+    <style>
+        * {
+            margin: 0px;
+        }
+
+        #wrapper {
+            width: 750px;
+            height: 900px;
+            background: url("./잔디.jpg");
+            position: relative;
+            overflow: hidden;
+        }
+
+        #control {
+            width: 100%;
+            height: 100px;
+            opacity: 1;
+        }
+
+        #stage {
+            width: 100%;
+            height: 750px;
+            text-align: center;
+
+            font-size: 100px;
+        }
+
+        #time {
+            width: 33%;
+            height: 100%;
+            float: left;
+            font-size: 50px;
+            text-align: center;
+            line-height: 100px;
+        }
+
+        #cscore {
+            width: 34%;
+            height: 100%;
+            float: left;
+
+            text-align: center;
+            line-height: 100px;
+        }
+
+        #cstage {
+            width: 33%;
+            height: 100%;
+            float: left;
+            text-align: center;
+            line-height: 100px;
+        }
+
+        #hammer {
+            width: 250px;
+            height: 250px;
+            position: absolute;
+            /*가장 근접한 부모 태그를 기준으로 한 위치*/
+            left: -250px;
+            top: -250px;
+
+        }
+
+        #start {
+            width: 100%;
+            height: 750px;
+            position: absolute;
+            color: white;
+            font-size: 100px;
+            top: 0px;
+            left: 0px;
+            margin: auto;
+            text-align: center;
+            background: url("./잔디.jpg");
+            position: absolute;
+            line-height: 750px;
+        }
+
+    </style>
+    <script src="./GameObject.js"></script>
+    <script src="./ObjectManager.js"></script>
+    <script src="./common.js"></script>
+    <script src="./Doo.js"></script>
+    <script>
+        var stage; //두더지 나올 곳
+        var score = 0;
+        var cscore, cstage;
+        var mystage = 0;
+        var time;
+        var doo; //두더지 생성
+        var objectManager = new ObjectManager();
+        var a; //두더지 사진 번호
+        var dooArray = [];
+        var count = 0;
+        var hammerX = -250; //뿅망치 좌표
+        var hammerY = -250;
+        var hammer; //뽕망치
+        var mynum = 0;
+        var min = 0;
+        var sec = 30;
+        var st;
+        var r = 0;
+        var onoff = false;
+        var firstSec = 4;
+        var start;
+
+        function init() {
+            start = document.getElementById("start");
+            stage = document.getElementById("stage");
+            countDown();
+
+            
+        }
+
+        function startGame(){
+            time = document.getElementById("time");
+            cscore = document.getElementById("cscore");
+            cstage = document.getElementById("cstage");
+            
+            mystage=1;
+           
+            createDoo();
+            showStage();
+            showScore();
+            showTimeText();
+            execute();
+
+            dooArray[0].div.addEventListener("click", function () {
+                if (dooArray[0].flag ==false) {
+                    score -= 10;
+                }
+                else {
+                    score += 10;
+                }
+                showScore();
+                if (score == 100 && mystage == 1) {
+                    clearTimeout(st);
+                onoff=!onoff;
+                alert("STAGE UP!!");
+                countDown();
+                }
+                if (score == 200 && mystage == 2) {
+                    clearTimeout(st);
+                onoff=!onoff;
+                alert("STAGE UP!!");
+                countDown();
+                }r=0;
+            });
+            dooArray[1].div.addEventListener("click", function () {
+                if (dooArray[1].flag ==false) {
+                    score -= 10;
+                }
+                else {
+                    score += 10;
+                }
+                showScore();
+                if (score == 100 && mystage == 1) {
+                    clearTimeout(st);
+                onoff=!onoff;
+                alert("STAGE UP!!");
+                countDown();
+                }
+                if (score == 200 && mystage == 2) {
+                    clearTimeout(st);
+                onoff=!onoff;
+                alert("STAGE UP!!");
+                countDown();
+                }r=0;
+            });
+            dooArray[2].div.addEventListener("click", function () {
+                if (dooArray[2].flag ==false) {
+                    score -= 10;
+                }
+                else {
+                    score += 10;
+                }
+                showScore();
+                if (score == 100 && mystage == 1) {
+                    clearTimeout(st);
+                onoff=!onoff;
+                alert("STAGE UP!!");
+                countDown();
+                }
+                if (score == 200 && mystage == 2) {
+                    clearTimeout(st);
+                onoff=!onoff;
+                alert("STAGE UP!!");
+                countDown();
+                }r=0;
+            });
+            dooArray[3].div.addEventListener("click", function () {
+                if (dooArray[3].flag ==false) {
+                    score -= 10;
+                }
+                else {
+                    score += 10;
+                }
+                showScore();
+                if (score == 100 && mystage == 1) {
+                    clearTimeout(st);
+                onoff=!onoff;
+                alert("STAGE UP!!");
+                countDown();
+                }
+                if (score == 200 && mystage == 2) {
+                    clearTimeout(st);
+                onoff=!onoff;
+                alert("STAGE UP!!");
+                countDown();
+                }r=0;
+            });
+            dooArray[4].div.addEventListener("click", function () {
+                if (dooArray[4].flag ==false) {
+                    score -= 10;
+                }
+                else {
+                    score += 10;
+                }
+                showScore();
+                if (score == 100 && mystage == 1) {
+                    clearTimeout(st);
+                onoff=!onoff;
+                alert("STAGE UP!!");
+                countDown();
+                }
+                if (score == 200 && mystage == 2) {
+                    clearTimeout(st);
+                onoff=!onoff;
+                alert("STAGE UP!!");
+                countDown();
+                }r=0;
+            });
+            dooArray[5].div.addEventListener("click", function () {
+                if (dooArray[5].flag ==false) {
+                    score -= 10;
+                }
+                else {
+                    score += 10;
+                }
+                showScore();
+                if (score == 100 && mystage == 1) {
+                    clearTimeout(st);
+                onoff=!onoff;
+                alert("STAGE UP!!");
+                countDown();
+                }
+                if (score == 200 && mystage == 2) {
+                    clearTimeout(st);
+                onoff=!onoff;
+                alert("STAGE UP!!");
+                countDown();
+                }r=0;
+            });
+            dooArray[6].div.addEventListener("click", function () {
+                if (dooArray[6].flag ==false) {
+                    score -= 10;
+                }
+                else {
+                    score += 10;
+                }
+                showScore();
+                if (score == 100 && mystage == 1) {
+                    clearTimeout(st);
+                onoff=!onoff;
+                alert("STAGE UP!!");
+                countDown();
+                }
+                if (score == 200 && mystage == 2) {
+                    clearTimeout(st);
+                onoff=!onoff;
+                alert("STAGE UP!!");
+                countDown();
+                }r=0;
+            });
+            dooArray[7].div.addEventListener("click", function () {
+                if (dooArray[7].flag ==false) {
+                    score -= 10;
+                }
+                else {
+                    score += 10;
+                }
+                showScore();
+                if (score == 100 && mystage == 1) {
+                    clearTimeout(st);
+                onoff=!onoff;
+                alert("STAGE UP!!");
+                countDown();
+                }
+                if (score == 200 && mystage == 2) {
+                    clearTimeout(st);
+                onoff=!onoff;
+                alert("STAGE UP!!");
+                countDown();
+                }r=0;
+            });
+            dooArray[8].div.addEventListener("click", function () {
+                if (dooArray[8].flag ==false) {
+                    score -= 10;
+                }
+                else {
+                    score += 10;
+                }
+                showScore();
+                if (score == 100 && mystage == 1) {
+                    clearTimeout(st);
+                onoff=!onoff;
+                alert("STAGE UP!!");
+                countDown();
+                }
+                if (score == 200 && mystage == 2) {
+                    
+                    clearTimeout(st);
+                onoff=!onoff;
+                alert("STAGE UP!!");
+                countDown();
+                }r=0;
+            });
+            gameLoop();
+        }
+
+        function createDoo() {
+            var flag;
+            for (var j = 0; j < 3; j++) {
+                for (var i = 0; i < 3; i++) {
+                    mynum++;
+                    a = getRandom(2) + 1;
+                    if (a == 1) {
+                        flag = false;
+                    }
+                    if (a == 2) {
+                        flag = true;
+                    }
+                    doo = new Doo("DOO" + mynum, stage, (250 * i) + 20, (250 * j) + 100, 200, 200, 0, 0, 0, 0, "", "./두더지" + a + ".png", flag);
+                    doo.div.style.zIndex = 1;
+                    dooArray.push(doo);
+                    objectManager.addObject(doo);
+                }
+            }
+        }
+
+        function showDoo() {
+            for (var i = 0; i < dooArray.length; i++) {
+                if (dooArray[i].flag == true) {
+                    dooArray[i].src = "./두더지2.png";
+                }
+                else {
+                    dooArray[i].src = "./두더지1.png";
+                }
+            }
+        }
+
+        function showStage() {
+            cstage.style.fontSize = 50 + "px";
+            cstage.innerText = "STAGE " + mystage;
+        }
+
+        function createHammer() {
+            hammer = document.getElementById("hammer");
+
+            hammerX = event.clientX; //x좌표값
+            hammerY = event.clientY; //y좌표값
+            //hammer.style.left = hammerX - 125 + "px";
+            //hammer.style.top = hammerY - 100 + "px";
+            hammer.style.left = hammerX + 1 + "px";
+            hammer.style.top = hammerY + 1 + "px";
+            hammer.style.zIndex = 9;
+
+        }
+
+        function RotateHammer() {
+
+            r = r - 50;
+            hammer.style.transform = "rotate(" + r + "deg)";
+
+        }
+        function RotateHammer2() {
+
+            r = r + 50;
+            hammer.style.transform = "rotate(" + r + "deg)";
+
+        }
+
+        function showScore() {
+            cscore.style.fontSize = 50 + "px";
+            cscore.innerText = score + "점";
+
+        }
+
+        function timeWatch() {
+            sec--;
+
+            if (sec < 0) {
+                min--;
+                sec = 59;
+            }
+            if (min <= 0 && sec <= 0) {
+                clearTimeout(st);
+                min = 0;
+                sec = 0;
+                stage.style.color = "fff";
+                stage.innerText = "TIME OVER";
+                
+                onoff = !onoff;
+
+            }
+            showTimeText();
+        }
+
+        function execute() {
+            onoff = !onoff;
+            if (onoff) {
+                st = setInterval("timeWatch()", 1000);
+            }
+           
+
+        }
+
+        function showTimeText() {
+            time.style.fontSize = 50 + "px";
+            time.innerText = getTimeString(min) + ":" + getTimeString(sec);
+        }
+
+        function nextStage() {
+            onoff=true;
+            mystage++;
+            sec = 30;
+            showStage();
+            st = setInterval("timeWatch()", 1000);
+            gameLoop();
+        }
+
+        function countDown(){
+            start.style.display = "block";
+            stage.style.display="none";
+            
+            firstSec--;
+            if (firstSec > 0) {
+                start.innerText = firstSec;
+                setTimeout("countDown()", 1000);
+            }
+            if (firstSec == 0) {
+                start.style.display = "none";
+                stage.style.display="block";
+               
+                if(mystage==0){
+                    startGame();
+                }
+                else{
+                    nextStage();
+                }
+                firstSec=4;
+            }
+        }
+
+
+
+        function gameLoop() {
+            if (onoff) {
+                count++;
+
+
+                if (mystage == 1) {
+                    if (count % 100 == 0) {
+                        for (var i = 0; i < dooArray.length; i++) {
+                            var x = getRandom(2);
+
+                            if (x == 0) {
+                                dooArray[i].flag = false;
+                            }
+                            else {
+                                dooArray[i].flag = true;
+                            }
+                        }
+                        showDoo();
+                    }
+                }
+                if (mystage == 2) {
+                    if (count % 50 == 0) {
+                        for (var i = 0; i < dooArray.length; i++) {
+                            var x = getRandom(2);
+                            if (x == 0) {
+                                dooArray[i].flag = false;
+                            }
+                            else {
+                                dooArray[i].flag = true;
+                            }
+                        }
+                        showDoo();
+                    }
+                }
+                if (mystage == 3) {
+                    if (count % 20 == 0) {
+                        for (var i = 0; i < dooArray.length; i++) {
+                            var x = getRandom(2);
+                            if (x == 0) {
+                                dooArray[i].flag = false;
+                            }
+                            else {
+                                dooArray[i].flag = true;
+                            }
+                        }
+                        showDoo();
+                    }
+                }
+
+                objectManager.tick();
+                objectManager.render();
+                setTimeout("gameLoop()", 10);
+
+            }
+        }
+
+
+        addEventListener("load", function () {
+            init();
+        });
+
+    </script>
+</head>
+
+<body onMouseMove="createHammer()" onmousedown="RotateHammer()" onmouseup="RotateHammer2()">
+    <div id="wrapper">
+        <div id="control">
+            <div id="time"></div>
+            <div id="cscore"></div>
+            <div id="cstage"></div>
+        </div>
+        <div id="stage">
+            <img src="./망치2.png" id="hammer" />
+        </div>
+        <div id="start"></div>
+    </div>
+
+</body>
+
+</html>
